@@ -30,6 +30,7 @@ contract CoinFlipBet {
 
   function placeBet(uint option) external payable notOwner {
     require(msg.value > 0, "Require ETH for betting");
+    require(msg.sender.balance > msg.value, "The balance should be greater than betted amount");
     require(option <= uint(BetOption.TAIL), "Invalid option for betting");
     BetOption result = flipCoin();
     BetOption betted = BetOption(option);
